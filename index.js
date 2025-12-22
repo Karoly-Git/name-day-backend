@@ -1,51 +1,65 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
+
 const PORT = process.env.PORT || 8000;
+const nameDays = require('./src/data');
 
-const nameDays = require('./src/data')
+// Middleware
+app.use(express.json());
 
+// Health check (for Heroku & monitoring)
+app.get('/health', (req, res) => {
+    res.json({ status: 'ok' });
+});
+
+// Root – return all data
 app.get('/', (req, res) => {
-    res.json(nameDays.nameDays)
+    res.json(nameDays.nameDays);
 });
 
-app.get('/:month?/:date?/:country?', (req, res) => {
-    const { month, date, country } = req.params;
-    const data = nameDays.nameDays;
+// Month
+app.get('/:month', (req, res) => {
+    const month = req.params.month.toLowerCase();
+    const data = nameDays.nameDays[month];
 
-    if (!month) {
-        res.json(data);
-        return;
+    if (!data) {
+        return res.status(404).json({ error: 'Data not found' });
     }
 
-    if (!data[month]) {
-        res.status(404).json({ error: 'Data not found' });
-        return;
-    }
-
-    if (!date) {
-        res.json(data[month]);
-        return;
-    }
-
-    if (!data[month][date]) {
-        res.status(404).json({ error: 'Data not found' });
-        return;
-    }
-
-    if (!country) {
-        res.json(data[month][date]);
-        return;
-    }
-
-    if (!data[month][date][country]) {
-        res.status(404).json({ error: 'Data not found' });
-        return;
-    }
-
-    res.json(data[month][date][country]);
+    res.json(data);
 });
 
+// Month + Date
+app.get('/:month/:date', (req, res) => {
+    const month = req.params.month.toLowerCase();
+    const date = req.params.date;
+    const data = nameDays.nameDays?.[month]?.[date];
+
+    if (!data) {
+        return res.status(404).json({ error: 'Data not found' });
+    }
+
+    res.json(data);
+});
+
+// Month + Date + Country
+app.get('/:month/:date/:country', (req, res) => {
+    const month = req.params.month.toLowerCase();
+    const date = req.params.date;
+    const country = req.params.country.toLowerCase();
+
+    const data = nameDays.nameDays?.[month]?.[date]?.[country];
+
+    if (!data) {
+        return res.status(404).json({ error: 'Data not found' });
+    }
+
+    res.json(data);
+});
+
+// Start server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`)
+    console.log(`Server running on http://localhost:${PORT}`);
 });
-
