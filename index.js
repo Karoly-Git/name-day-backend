@@ -1,14 +1,8 @@
-require('dotenv').config();
-
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8000;
 
 const nameDays = require('./src/data')
-
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`)
-});
 
 app.get('/', (req, res) => {
     res.json(nameDays.nameDays)
@@ -50,3 +44,8 @@ app.get('/:month?/:date?/:country?', (req, res) => {
 
     res.json(data[month][date][country]);
 });
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`)
+});
+
