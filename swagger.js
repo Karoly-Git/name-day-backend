@@ -13,6 +13,10 @@ const options = {
                 url: "http://localhost:8000",
                 description: "Local server",
             },
+            {
+                url: "https://name-day-backend-0d74dcea0ed2.herokuapp.com/",
+                description: "Heroku server",
+            }
         ],
     },
     apis: ["./index.js"],
