@@ -1,6 +1,9 @@
 require('dotenv').config();
 
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
+
 const app = express();
 
 const PORT = process.env.PORT || 8000;
@@ -8,6 +11,9 @@ const nameDays = require('./src/data');
 
 // Middleware
 app.use(express.json());
+
+// Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Health check (for Heroku & monitoring)
 app.get('/health', (req, res) => {
