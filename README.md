@@ -32,7 +32,7 @@ Example: /january/1
 
 ### Get name days for a specific country
 GET /:month/:date/:country  
-Example: /january/1/us
+Example: /january/1/pl
 
 ### Health check
 GET /health
