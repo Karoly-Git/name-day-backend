@@ -71,7 +71,7 @@ nodemon index.js
 The API will be available at:
 http://localhost:8000/
 
-You can override the port using a .env file:
+You can override the port using a .env file like:
 PORT=3000
 
 Deployment
@@ -96,15 +96,4 @@ Karoly Hornyak
 Full-Stack Web Developer
 karoly.webdev@gmail.com
 https://karolyhornyak.co.uk/
-
----
-
-This version is **clean, continuous, and portfolio-safe** — no broken sections, no confusing splits.
-
-If you want next, I can:
-- convert this to **OpenAPI / Swagger**
-- add **badges** (deploy status, Node version)
-- rewrite it in a slightly more “recruiter-facing” tone
-
-You’re doing great — this is the polish phase now.
 
