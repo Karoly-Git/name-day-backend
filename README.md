@@ -2,7 +2,7 @@
 
 A RESTful API that provides international name-day data by month, date, and country (Poland and Hungary only). Designed for fast read access, clean routing, and simple deployment.
 
-Live backend demo: https://name-day-backend-0d74dcea0ed2.herokuapp.com
+Live backend demo: https://name-day-backend-0d74dcea0ed2.herokuapp.com  
 Live frontend demo: https://karoly-git.github.io/name-day-frontend/
 
 ---
@@ -42,58 +42,82 @@ Response:
 {
   "status": "ok"
 }
+```
 
-Design Decisions
+---
+
+## Design Decisions
 
 This API uses explicit routes instead of optional wildcard parameters to avoid ambiguity and improve maintainability. Input normalization is applied to ensure consistent API behavior regardless of casing. The application relies on in-memory data for simplicity and fast read access; in a production environment, this could be replaced with a database or cache layer such as PostgreSQL or Redis. A health endpoint is included to support deployment monitoring and uptime checks.
 
-Testing (Planned)
+---
 
-Planned tests using Jest and Supertest include endpoint availability, valid data responses, invalid month/date/country handling, and verification of the health check endpoint.
+## Testing (Planned)
 
-Project Structure
+Planned tests using Jest and Supertest include:
+- Endpoint availability
+- Valid data responses
+- Invalid month/date/country handling
+- Health check endpoint verification
 
+---
+
+## Project Structure
+
+```text
 .
 ├── src
-│ └── data.js
+│   └── data.js
 ├── index.js
 ├── package.json
 └── README.md
+```
 
-Local Development
+---
+
+## Local Development
 
 Install dependencies:
+```bash
 npm install
+```
 
 Run the development local server:
+```bash
 nodemon index.js
+```
 
 The API will be available at:
+```
 http://localhost:8000/
+```
 
-You can override the port using a .env file like:
+You can override the port using a `.env` file:
+```
 PORT=3000
+```
 
-Deployment
+---
 
-This project uses GitHub-based continuous deployment. Every push to the master branch triggers an automatic deployment on Heroku. Environment variables are managed via Heroku config vars.
+## Deployment
 
-Future Improvements
+This project uses GitHub-based continuous deployment. Every push to the `master` branch triggers an automatic deployment on Heroku. Environment variables are managed via Heroku config vars.
 
-API versioning (/api/v1)
+---
 
-Caching headers
+## Future Improvements
 
-Rate limiting
+- API versioning (`/api/v1`)
+- Caching headers
+- Rate limiting
+- Full test coverage
+- OpenAPI / Swagger documentation
 
-Full test coverage
+---
 
-OpenAPI / Swagger documentation
+## Author
 
-Author
-
-Karoly Hornyak
-Full-Stack Web Developer
-karoly.webdev@gmail.com
+**Karoly Hornyak**  
+Full-Stack Web Developer  
+karoly.webdev@gmail.com  
 https://karolyhornyak.co.uk/
-
