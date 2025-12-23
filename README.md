@@ -54,9 +54,9 @@ Planned tests using Jest and Supertest include endpoint availability, valid data
 Project Structure
 
 .
-├── index.js
 ├── src
 │ └── data.js
+├── index.js
 ├── package.json
 └── README.md
 
