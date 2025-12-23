@@ -86,6 +86,7 @@ app.get('/:month', (req, res) => {
  *         required: true
  *         schema:
  *           type: string
+ *         example: january
  *       - in: path
  *         name: date
  *         required: true
@@ -122,17 +123,19 @@ app.get('/:month/:date', (req, res) => {
  *         required: true
  *         schema:
  *           type: string
+ *         example: january
  *       - in: path
  *         name: date
  *         required: true
  *         schema:
  *           type: string
+ *         example: "1"
  *       - in: path
  *         name: country
  *         required: true
  *         schema:
  *           type: string
- *         example: greece
+ *         example: pl
  *     responses:
  *       200:
  *         description: Country-specific name days
