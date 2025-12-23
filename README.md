@@ -65,11 +65,11 @@ Local Development
 Install dependencies:
 npm install
 
-Run the server:
-npm start
+Run the development local server:
+nodemon index.js
 
 The API will be available at:
-http://localhost:8000
+http://localhost:8000/
 
 You can override the port using a .env file:
 PORT=3000
@@ -92,9 +92,10 @@ OpenAPI / Swagger documentation
 
 Author
 
-Karoly
-Backend-focused JavaScript developer
-
+Karoly Hornyak
+Full-Stack Web Developer
+karoly.webdev@gmail.com
+https://karolyhornyak.co.uk/
 
 ---
 
