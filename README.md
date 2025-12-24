@@ -65,14 +65,15 @@ Planned tests using Jest and Supertest include:
 ## Project Structure
 
 ```text
-
-.
+BACKEND/
+├── routes/
+│   └── namedays.routes.js
 ├── src/
-│   └── data.js        # Name-day dataset
-├── index.js           # Express application entry point
-├── package.json       # Dependencies and scripts
-├── Procfile           # Heroku start command
-└── README.md          # Project documentation
+│   └── data.js
+├── index.js
+├── swagger.js
+├── package.json
+├── .gitignore
 ```
 
 ---
