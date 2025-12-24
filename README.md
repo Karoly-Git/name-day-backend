@@ -2,8 +2,9 @@
 
 A RESTful API that provides international name-day data by month, date, and country (Poland and Hungary only). Designed for fast read access, clean routing, and simple deployment.
 
-Live backend demo: https://name-day-backend-0d74dcea0ed2.herokuapp.com  
-Live frontend demo: https://karoly-git.github.io/name-day-frontend/
+🔗 Live frontend demo: https://karoly-git.github.io/name-day-frontend/  
+🔗 Backend API: https://name-day-backend-0d74dcea0ed2.herokuapp.com/  
+🔗 Swagger / OpenAPI: https://name-day-backend-0d74dcea0ed2.herokuapp.com/api-docs
 
 ---
 
