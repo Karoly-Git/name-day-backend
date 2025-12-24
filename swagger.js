@@ -6,7 +6,8 @@ const options = {
         info: {
             title: "Name Days API",
             version: "1.0.0",
-            description: "API for retrieving name days by month, date, and country",
+            description:
+                "API for retrieving name days by month, date, and country",
         },
         servers: [
             {
@@ -14,12 +15,12 @@ const options = {
                 description: "Local server",
             },
             {
-                url: "https://name-day-backend-0d74dcea0ed2.herokuapp.com/",
+                url: "https://name-day-backend-0d74dcea0ed2.herokuapp.com",
                 description: "Heroku server",
-            }
+            },
         ],
     },
-    apis: ["./index.js"],
+    apis: ["./routes/*.js"],
 };
 
 module.exports = swaggerJSDoc(options);
