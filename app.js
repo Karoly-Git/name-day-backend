@@ -23,6 +23,16 @@ app.use(
     })
 );
 
+// A friendly root message instead of “Cannot GET /”, add this to app.js
+app.get("/", (req, res) => {
+    res.json({
+        message: "Name Days API",
+        docs: "/api-docs",
+        version: "v1",
+        basePath: "/api/v1",
+    });
+});
+
 // Health check
 app.get("/health", (req, res) => res.json({ status: "ok" }));
 
