@@ -16,7 +16,7 @@ const options = {
                 description: "Local server",
             },
             {
-                // IMPORTANT: usually avoid trailing slash here
+                // IMPORTANT: avoid trailing slash here
                 url: "https://name-day-backend-0d74dcea0ed2.herokuapp.com",
                 description: "Heroku server",
             },
@@ -32,7 +32,7 @@ const options = {
                     required: ["error"],
                 },
 
-                // These are intentionally flexible because your dataset is nested/dynamic.
+                // These are intentionally flexible because the dataset is nested/dynamic.
                 NameDaysAllResponse: {
                     type: "object",
                     additionalProperties: true,
