@@ -93,7 +93,8 @@ exports.getMonthDate = (req, res) => {
     const data = dataset?.[month]?.[date];
     if (!data) {
         return res.status(404).json({
-            error: `No data found for the given date. The date exceeded the number of days in ${month}.`
+            error: `No data found for the given date. The date exceeded the number of days in ${month}.`,
+            days_in_month: { january: 31, february: 28, march: 31, april: 30, may: 31, june: 30, july: 31, august: 31, september: 30, october: 31, november: 30, december: 31 }
         });
     }
 
