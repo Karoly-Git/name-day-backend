@@ -2,21 +2,66 @@ const nameDays = require("../data/namedays.data");
 
 const dataset = nameDays.nameDays ?? nameDays;
 
-function notFound(res) {
-    return res.status(404).json({ error: "Data not found" });
+/* =========================
+   Constants
+========================= */
+
+const MONTHS = [
+    "january", "february", "march", "april", "may", "june",
+    "july", "august", "september", "october", "november", "december"
+];
+
+const ALLOWED_COUNTRIES = ["pl", "hu"];
+
+/* =========================
+   Helpers
+========================= */
+
+function getValidMonth(req, res) {
+    const month = req.params.month?.toLowerCase();
+    if (!MONTHS.includes(month)) {
+        res.status(404).json({
+            error: "Wrong month given! Please give a correct month name.",
+            possible_values: MONTHS
+        });
+        return null;
+    }
+    return month;
 }
+
+function getValidDate(req, res) {
+    const date = Number(req.params.date);
+    if (!Number.isInteger(date) || date < 1 || date > 31) {
+        res.status(404).json({
+            error: "Wrong date given! Please give a correct date between 1 and 31."
+        });
+        return null;
+    }
+    return date;
+}
+
+function getValidCountry(req, res) {
+    const country = req.params.country?.toLowerCase();
+    if (!ALLOWED_COUNTRIES.includes(country)) {
+        res.status(404).json({
+            error: "Wrong country given! Allowed values are: pl (Poland), hu (Hungary)."
+        });
+        return null;
+    }
+    return country;
+}
+
+/* =========================
+   Controllers
+========================= */
 
 exports.getAll = (req, res) => {
     res.json(dataset);
 };
 
 exports.getMonth = (req, res) => {
-    const month = req.params.month?.toLowerCase();
-    const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-
-    if (!months.includes(month)) {
-        return res.status(404).json({ error: "Wrong month given! Please give a correct month name." });
-    }
+    const month = getValidMonth(req, res);
+    if (!month) return;
 
     const data = dataset?.[month];
     if (!data) {
@@ -27,17 +72,11 @@ exports.getMonth = (req, res) => {
 };
 
 exports.getMonthDate = (req, res) => {
-    const month = req.params.month?.toLowerCase();
-    const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+    const month = getValidMonth(req, res);
+    if (!month) return;
 
-    if (!months.includes(month)) {
-        return res.status(404).json({ error: "Wrong month given! Please give a correct month name." });
-    }
-
-    const date = Number(req.params.date);
-    if (!Number.isInteger(date) || date < 1 || date > 31) {
-        return res.status(404).json({ error: "Wrong date given! Please give a correct date between 1 and 31." });
-    }
+    const date = getValidDate(req, res);
+    if (!date) return;
 
     const data = dataset?.[month]?.[date];
     if (!data) {
@@ -50,24 +89,14 @@ exports.getMonthDate = (req, res) => {
 };
 
 exports.getMonthDateCountry = (req, res) => {
-    const month = req.params.month?.toLowerCase();
-    const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+    const month = getValidMonth(req, res);
+    if (!month) return;
 
-    if (!months.includes(month)) {
-        return res.status(404).json({ error: "Wrong month given! Please give a correct month name." });
-    }
+    const date = getValidDate(req, res);
+    if (!date) return;
 
-    const date = Number(req.params.date);
-    if (!Number.isInteger(date) || date < 1 || date > 31) {
-        return res.status(404).json({ error: "Wrong date given! Please give a correct date between 1 and 31." });
-    }
-
-    const country = req.params.country?.toLowerCase();
-    const allowedCountries = ["pl", "hu"];
-
-    if (!allowedCountries.includes(country)) {
-        return res.status(404).json({ error: "Wrong country given! Allowed values are: pl, hu." });
-    }
+    const country = getValidCountry(req, res);
+    if (!country) return;
 
     const data = dataset?.[month]?.[date]?.[country];
     if (!data) {
