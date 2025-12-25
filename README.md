@@ -20,30 +20,41 @@ A RESTful API that provides international name-day data by month, date, and coun
 
 ## API Endpoints
 
-### Get all name days
+### Base URL
 GET /
-
-### Get name days for a month
-GET /:month  
-Example: /january
-
-### Get name days for a specific date
-GET /:month/:date  
-Example: /january/1
-
-### Get name days for a specific country
-GET /:month/:date/:country  
-Example: /january/1/pl
+Response:
+```json
+{
+"message": "Name Days API",
+"docs": "/api-docs",
+"version": "v1",
+"basePath": "/api/v1"
+}
+```
 
 ### Health check
 GET /health
-
 Response:
 ```json
 {
   "status": "ok"
 }
 ```
+
+### Get all name days
+GET /api/v1/namedays
+
+### Get name days for a month
+GET /api/v1/namedays/:month  
+Example: /api/v1/namedays/january
+
+### Get name days for a specific date
+GET /api/v1/namedays/:month/:date  
+Example: /api/v1/namedays/january/1
+
+### Get name days for a specific country
+GET /api/v1/namedays/:month/:date/:country  
+Example: /api/v1/namedays/january/1/pl
 
 ---
 
@@ -66,15 +77,26 @@ Planned tests using Jest and Supertest include:
 ## Project Structure
 
 ```text
-BACKEND/
-├── routes/
-│   └── namedays.routes.js
-├── src/
-│   └── data.js
-├── index.js
-├── swagger.js
-├── package.json
-├── .gitignore
+.
+├─ server.js
+├─ app.js
+├─ swagger.js
+├─ package.json
+├─ .env
+├─ .gitignore
+└─ src
+   ├─ data
+   │  └─ namedays.data.js
+   ├─ routes
+   │  └─ v1
+   │     └─ namedays.routes.js
+   ├─ controllers
+   │  └─ namedays.controller.js
+   ├─ middleware
+   │  ├─ cache.middleware.js
+   │  └─ rateLimit.middleware.js
+   └─ utils
+      └─ cache.js
 ```
 
 ---
@@ -111,11 +133,7 @@ This project uses GitHub-based continuous deployment. Every push to the `master`
 
 ## Future Improvements
 
-- API versioning (`/api/v1`)
-- Caching headers
-- Rate limiting
 - Full test coverage
-- OpenAPI / Swagger documentation
 
 ---
 
