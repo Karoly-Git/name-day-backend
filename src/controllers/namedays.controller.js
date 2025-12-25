@@ -11,12 +11,7 @@ exports.getAll = (req, res) => {
 };
 
 exports.getMonth = (req, res) => {
-    const monthParam = req.params.month;
-    if (!monthParam) {
-        return res.status(400).json({ error: "Month parameter is required." });
-    }
-
-    const month = monthParam.toLowerCase();
+    const month = req.params.month?.toLowerCase();
     const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 
     if (!months.includes(month)) {
