@@ -118,7 +118,7 @@ router.get("/namedays/:month/:date", cacheMiddleware(60), getMonthDate);
  *         required: true
  *         schema:
  *           type: string
- *         example: sweden
+ *         example: pl
  *     responses:
  *       200:
  *         description: Country data

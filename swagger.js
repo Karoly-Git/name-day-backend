@@ -38,7 +38,7 @@ const options = {
                     additionalProperties: true,
                     example: {
                         january: {
-                            "1": { sweden: ["Name1", "Name2"] },
+                            "1": { pl: ["Name1", "Name2"] },
                         },
                     },
                 },
@@ -46,14 +46,14 @@ const options = {
                     type: "object",
                     additionalProperties: true,
                     example: {
-                        "1": { sweden: ["Name1", "Name2"] },
+                        "1": { pl: ["Name1", "Name2"] },
                     },
                 },
                 DateResponse: {
                     type: "object",
                     additionalProperties: true,
                     example: {
-                        sweden: ["Name1", "Name2"],
+                        pl: ["Name1", "Name2"],
                     },
                 },
                 CountryResponse: {
