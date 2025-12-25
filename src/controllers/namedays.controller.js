@@ -22,7 +22,11 @@ function getValidMonth(req, res) {
     if (!MONTHS.includes(month)) {
         res.status(404).json({
             error: "Wrong month given! Please give a correct month name.",
-            possible_values: MONTHS
+            possible_values: MONTHS,
+            examples: [
+                "/api/v1/namedays/january",
+                "/api/v1/namedays/may"
+            ]
         });
         return null;
     }
@@ -33,7 +37,11 @@ function getValidDate(req, res) {
     const date = Number(req.params.date);
     if (!Number.isInteger(date) || date < 1 || date > 31) {
         res.status(404).json({
-            error: "Wrong date given! Please give a correct date between 1 and 31."
+            error: "Wrong date given! Please give a correct date between 1 and 31.",
+            examples: [
+                "/api/v1/namedays/january/12",
+                "/api/v1/namedays/may/28"
+            ]
         });
         return null;
     }
@@ -44,7 +52,11 @@ function getValidCountry(req, res) {
     const country = req.params.country?.toLowerCase();
     if (!ALLOWED_COUNTRIES.includes(country)) {
         res.status(404).json({
-            error: "Wrong country given! Allowed values are: pl (Poland), hu (Hungary)."
+            error: "Wrong country given! Allowed values are: pl (Poland), hu (Hungary).",
+            examples: [
+                "/api/v1/namedays/january/12/hu",
+                "/api/v1/namedays/may/28/pl"
+            ]
         });
         return null;
     }
