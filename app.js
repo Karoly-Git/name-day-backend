@@ -17,7 +17,7 @@ app.use(express.json());
 // CORS (important for Swagger UI)
 app.use(
     cors({
-        origin: "*", // tighten later if you want
+        origin: "*", // tighten later if needed
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization"],
     })
