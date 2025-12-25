@@ -1,3 +1,10 @@
+
+/**
+ * 
+ * A Terms of Use Agreement
+Terms of use is a legal agreement between the end-user and an organization, defining how the end-user should ideally use the API’s services. These terms should include API limits under best practices, with terms and conditions. Constraints also need to be clearly stated so that end-users understand what API usage and practices are permitted, so they don’t accidentally have their access restricted.
+ */
+
 const swaggerJSDoc = require("swagger-jsdoc");
 
 const PORT = process.env.PORT || 8000;
