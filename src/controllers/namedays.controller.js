@@ -50,10 +50,31 @@ exports.getMonthDate = (req, res) => {
 };
 
 exports.getMonthDateCountry = (req, res) => {
-    const month = req.params.month.toLowerCase();
-    const date = req.params.date;
-    const country = req.params.country.toLowerCase();
+    const month = req.params.month?.toLowerCase();
+    const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+
+    if (!months.includes(month)) {
+        return res.status(404).json({ error: "Wrong month given! Please give a correct month name." });
+    }
+
+    const date = Number(req.params.date);
+    if (!Number.isInteger(date) || date < 1 || date > 31) {
+        return res.status(404).json({ error: "Wrong date given! Please give a correct date between 1 and 31." });
+    }
+
+    const country = req.params.country?.toLowerCase();
+    const allowedCountries = ["pl", "hu"];
+
+    if (!allowedCountries.includes(country)) {
+        return res.status(404).json({ error: "Wrong country given! Allowed values are: pl, hu." });
+    }
+
     const data = dataset?.[month]?.[date]?.[country];
-    if (!data) return notFound(res);
+    if (!data) {
+        return res.status(404).json({
+            error: `No data found for ${country} on ${month} ${date}.`
+        });
+    }
+
     res.json(data);
 };
