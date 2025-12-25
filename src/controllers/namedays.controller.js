@@ -11,9 +11,23 @@ exports.getAll = (req, res) => {
 };
 
 exports.getMonth = (req, res) => {
-    const month = req.params.month.toLowerCase();
+    const monthParam = req.params.month;
+    if (!monthParam) {
+        return res.status(400).json({ error: "Month parameter is required." });
+    }
+
+    const month = monthParam.toLowerCase();
+    const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+
+    if (!months.includes(month)) {
+        return res.status(404).json({ error: "Wrong month given! Please give a correct month name." });
+    }
+
     const data = dataset?.[month];
-    if (!data) return notFound(res);
+    if (!data) {
+        return res.status(404).json({ error: "No data found for this month." });
+    }
+
     res.json(data);
 };
 
