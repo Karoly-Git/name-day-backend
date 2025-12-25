@@ -1,39 +1,41 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const nameDays = require('../../data/namedays.data');
+const {
+    getAll,
+    getMonth,
+    getMonthDate,
+    getMonthDateCountry,
+} = require("../../controllers/namedays.controller");
+
+const { cacheMiddleware } = require("../../middleware/cache.middleware");
+const { apiLimiter } = require("../../middleware/rateLimit.middleware");
+
+// Apply rate limiting to all v1 routes
+router.use(apiLimiter);
 
 /**
- * @swagger
- * /health:
- *   get:
- *     summary: Health check
- *     responses:
- *       200:
- *         description: API is running
- */
-router.get('/health', (req, res) => {
-    res.json({ status: 'ok' });
-});
-
-/**
- * @swagger
- * /:
+ * @openapi
+ * /api/v1/namedays:
  *   get:
  *     summary: Get all name days data
+ *     tags: [NameDays]
  *     responses:
  *       200:
  *         description: All name days
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/NameDaysAllResponse'
  */
-router.get('/', (req, res) => {
-    res.json(nameDays.nameDays);
-});
+router.get("/namedays", cacheMiddleware(60), getAll);
 
 /**
- * @swagger
- * /{month}:
+ * @openapi
+ * /api/v1/namedays/{month}:
  *   get:
- *     summary: Get name days for a month
+ *     summary: Get name days by month
+ *     tags: [NameDays]
  *     parameters:
  *       - in: path
  *         name: month
@@ -44,31 +46,32 @@ router.get('/', (req, res) => {
  *     responses:
  *       200:
  *         description: Month data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/MonthResponse'
  *       404:
  *         description: Data not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.get('/:month', (req, res) => {
-    const month = req.params.month.toLowerCase();
-    const data = nameDays.nameDays[month];
-
-    if (!data) {
-        return res.status(404).json({ error: 'Data not found' });
-    }
-
-    res.json(data);
-});
+router.get("/namedays/:month", cacheMiddleware(60), getMonth);
 
 /**
- * @swagger
- * /{month}/{date}:
+ * @openapi
+ * /api/v1/namedays/{month}/{date}:
  *   get:
- *     summary: Get name days for a specific date
+ *     summary: Get name days by month and date
+ *     tags: [NameDays]
  *     parameters:
  *       - in: path
  *         name: month
  *         required: true
  *         schema:
  *           type: string
+ *         example: january
  *       - in: path
  *         name: date
  *         required: true
@@ -78,60 +81,62 @@ router.get('/:month', (req, res) => {
  *     responses:
  *       200:
  *         description: Date data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/DateResponse'
  *       404:
  *         description: Data not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.get('/:month/:date', (req, res) => {
-    const { month, date } = req.params;
-
-    const data = nameDays.nameDays?.[month.toLowerCase()]?.[date];
-
-    if (!data) {
-        return res.status(404).json({ error: 'Data not found' });
-    }
-
-    res.json(data);
-});
+router.get("/namedays/:month/:date", cacheMiddleware(60), getMonthDate);
 
 /**
- * @swagger
- * /{month}/{date}/{country}:
+ * @openapi
+ * /api/v1/namedays/{month}/{date}/{country}:
  *   get:
- *     summary: Get name days for a specific country
+ *     summary: Get name days by month, date, and country
+ *     tags: [NameDays]
  *     parameters:
  *       - in: path
  *         name: month
  *         required: true
  *         schema:
  *           type: string
+ *         example: january
  *       - in: path
  *         name: date
  *         required: true
  *         schema:
  *           type: string
+ *         example: "1"
  *       - in: path
  *         name: country
  *         required: true
  *         schema:
  *           type: string
- *         example: greece
+ *         example: sweden
  *     responses:
  *       200:
- *         description: Country-specific data
+ *         description: Country data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CountryResponse'
  *       404:
  *         description: Data not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.get('/:month/:date/:country', (req, res) => {
-    const { month, date, country } = req.params;
-
-    const data =
-        nameDays.nameDays?.[month.toLowerCase()]?.[date]?.[country.toLowerCase()];
-
-    if (!data) {
-        return res.status(404).json({ error: 'Data not found' });
-    }
-
-    res.json(data);
-});
+router.get(
+    "/namedays/:month/:date/:country",
+    cacheMiddleware(60),
+    getMonthDateCountry
+);
 
 module.exports = router;
