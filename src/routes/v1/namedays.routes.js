@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const nameDays = require('../../data');
+const nameDays = require('../../data/namedays.data');
 
 /**
  * @swagger
