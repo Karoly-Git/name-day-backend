@@ -13,7 +13,7 @@ const options = {
     definition: {
         openapi: "3.0.0",
         info: {
-            title: "Name Days API",
+            title: "Name Day API",
             summary: "",
             description: "API for retrieving name days by month, date, and country",
             termsOfService: "https://karoly-git.github.io/name-day-frontend/",
