@@ -1,3 +1,10 @@
+
+/**
+ * 
+ * A Terms of Use Agreement
+Terms of use is a legal agreement between the end-user and an organization, defining how the end-user should ideally use the API’s services. These terms should include API limits under best practices, with terms and conditions. Constraints also need to be clearly stated so that end-users understand what API usage and practices are permitted, so they don’t accidentally have their access restricted.
+ */
+
 const swaggerJSDoc = require("swagger-jsdoc");
 
 const PORT = process.env.PORT || 8000;
@@ -16,7 +23,7 @@ const options = {
                 description: "Local server",
             },
             {
-                // IMPORTANT: usually avoid trailing slash here
+                // IMPORTANT: avoid trailing slash here
                 url: "https://name-day-backend-0d74dcea0ed2.herokuapp.com",
                 description: "Heroku server",
             },
@@ -32,7 +39,7 @@ const options = {
                     required: ["error"],
                 },
 
-                // These are intentionally flexible because your dataset is nested/dynamic.
+                // These are intentionally flexible because the dataset is nested/dynamic.
                 NameDaysAllResponse: {
                     type: "object",
                     additionalProperties: true,
