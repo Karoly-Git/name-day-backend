@@ -26,10 +26,19 @@ app.use(
 // A friendly root message instead of “Cannot GET /”, add this to app.js
 app.get("/", (req, res) => {
     res.json({
-        message: "Name Days API",
-        docs: "/api-docs",
+        message: "Name Day API",
         version: "v1",
-        basePath: "/api/v1",
+        docs: "/api-docs",
+        endpointExamples: {
+            health: "/health",
+            all: "/api/v1/namedays",
+            byMonth: "/api/v1/namedays/january",
+            byMonthAndDate: "/api/v1/namedays/january/1",
+            byMonthDateAndCountry: "/api/v1/namedays/january/1/hu"
+
+        },
+        rateLimit: "300 requests / 15 minutes",
+        cacheTTL: "60 seconds",
     });
 });
 
