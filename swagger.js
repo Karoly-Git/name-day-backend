@@ -14,40 +14,76 @@ const options = {
         openapi: "3.0.0",
         info: {
             title: "Name Days API",
-            version: "1.0.0",
+            summary: "",
             description: "API for retrieving name days by month, date, and country",
+            termsOfService: "https://karoly-git.github.io/name-day-frontend/",
+            contact: {
+                name: "Karoly Hornyak",
+                url: "https://karolyhornyak.com",
+                email: "karoly.webdev@gmail.com",
+            },
+            license: {
+                "name": "Name Days API",
+                "url": "https://karoly-git.github.io/name-day-frontend/"
+            },
+            version: "1.0.0",
         },
         servers: [
             {
                 url: `http://localhost:${PORT}`,
-                description: "Local server",
+                description: "Developer Local server",
             },
             {
                 // IMPORTANT: avoid trailing slash here
                 url: "https://name-day-backend-0d74dcea0ed2.herokuapp.com",
-                description: "Heroku server",
+                description: "Production Heroku server",
             },
         ],
         tags: [{ name: "NameDays" }],
         components: {
             schemas: {
-                ErrorResponse: {
+                GeneralError: {
                     type: "object",
                     properties: {
-                        error: { type: "string", example: "Data not found" },
+                        error: {
+                            type: "string",
+                            example: "Data not found"
+                        },
                     },
                     required: ["error"],
                 },
 
-                // These are intentionally flexible because the dataset is nested/dynamic.
                 NameDaysAllResponse: {
                     type: "object",
-                    additionalProperties: true,
+                    description: "Month → day → language → list of name days",
+                    additionalProperties: {
+                        type: "object",
+                        additionalProperties: {
+                            type: "object",
+                            properties: {
+                                hu: {
+                                    type: "array",
+                                    items: { type: "string" }
+                                },
+                                pl: {
+                                    type: "array",
+                                    items: { type: "string" }
+                                }
+                            }
+                        }
+                    },
                     example: {
                         january: {
-                            "1": { pl: ["Name1", "Name2"] },
-                        },
-                    },
+                            "1": {
+                                hu: ["Fruzsina"],
+                                pl: ["Mieczysław", "Mieczysława"]
+                            },
+                            "2": {
+                                hu: ["Ábel"],
+                                pl: ["Abel"]
+                            }
+                        }
+                    }
                 },
                 MonthResponse: {
                     type: "object",
