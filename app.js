@@ -23,7 +23,7 @@ app.use(
     })
 );
 
-// A friendly root message instead of “Cannot GET /”, add this to app.js
+// A useful root message instead of “Cannot GET /”, add this to app.js
 app.get("/", (req, res) => {
     res.json({
         message: "Name Day API",
